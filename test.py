@@ -14,14 +14,14 @@ json_data = {
 def send_request(val):
     while True:
         response = requests.post(
-            'http://localhost:4000/graphql', headers=headers, json=json_data)
+            'http://13.215.183.131:4000/graphql', headers=headers, json=json_data)
         data = response.json()
         print(data)
 
 
 if __name__ == '__main__':
-    with Pool(200) as p:
-        p.map(send_request, range(200))
+    with Pool(400) as p:
+        p.map(send_request, range(400))
 
 
 # Note: json_data will not be serialized by requests
