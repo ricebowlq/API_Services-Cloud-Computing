@@ -59,7 +59,7 @@ We have disabled the playground for production purposes by default but you can e
 
 Going to [localhost:4000](http://localhost:4000/) will show this where you can create your queries and get output in json format
 
-![Apollo Playground](/path/to/image.png "Text to show on mouseover")
+![Apollo Playground](<Documentation/ss1.png> "Text to show on mouseover")
 
 ## Example Request
 
