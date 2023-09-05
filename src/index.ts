@@ -7,15 +7,15 @@ import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import gql from "graphql-tag";
-import {
+// import {
 
-  ApolloServerPluginLandingPageLocalDefault,
+//   ApolloServerPluginLandingPageLocalDefault,
 
-  ApolloServerPluginLandingPageProductionDefault,
+//   ApolloServerPluginLandingPageProductionDefault,
 
-} from '@apollo/server/plugin/landingPage/default';
+// } from '@apollo/server/plugin/landingPage/default';
 
-// import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
+import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
 
 
 const environment = process.env.NODE_ENV;
@@ -211,11 +211,11 @@ const server = new ApolloServer<MyContext>({
   plugins: [
     ApolloServerPluginDrainHttpServer({ httpServer }),
 
-    // ApolloServerPluginLandingPageDisabled(),
+    ApolloServerPluginLandingPageDisabled(),
 
-    environment === 'production'
-    ? ApolloServerPluginLandingPageProductionDefault()
-    : ApolloServerPluginLandingPageLocalDefault({ embed: false }),
+    // environment === 'production'
+    // ? ApolloServerPluginLandingPageProductionDefault()
+    // : ApolloServerPluginLandingPageLocalDefault({ embed: false }),
   ],
 
 });

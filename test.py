@@ -20,8 +20,8 @@ def send_request(val):
 
 
 if __name__ == '__main__':
-    with Pool(400) as p:
-        p.map(send_request, range(400))
+    with Pool(150) as p:
+        p.map(send_request, range(150))
 
 
 # Note: json_data will not be serialized by requests
