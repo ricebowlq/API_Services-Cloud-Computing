@@ -7,8 +7,18 @@ import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import gql from "graphql-tag";
-import expressjwt from "express-jwt";
+import {
 
+  ApolloServerPluginLandingPageLocalDefault,
+
+  ApolloServerPluginLandingPageProductionDefault,
+
+} from '@apollo/server/plugin/landingPage/default';
+
+// import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
+
+
+const environment = process.env.NODE_ENV;
 
 export const typeDefs = gql`
   type LatLong {
@@ -17,7 +27,7 @@ export const typeDefs = gql`
   }
 
   type User {
-    id: ID!
+    id: Int
     name: String
   }
 
@@ -26,6 +36,7 @@ export const typeDefs = gql`
     kind: String
     priority: priority!
     location: String!
+    cc: Int
   }
 
   type Weather{
@@ -34,6 +45,10 @@ export const typeDefs = gql`
     WindSpeedKmph: Int
     SkyCondition: Sky
     Location: String
+  }
+
+  type Test{
+    Name: String
   }
 
   enum Sky{
@@ -58,8 +73,11 @@ export const typeDefs = gql`
     vehicles: [Vehicle]
     weather: [Weather]
     users: [User]
+    tests: [Test]
   }
 `;
+
+const tests = [{"Name": "This is a test"}]
 
 const coordinates = [{"latitude":-6.6111441,"longitude":106.8473377},
 {"latitude":35.9704988,"longitude":139.6477598},
@@ -154,6 +172,8 @@ export const resolvers = {
         coordinates: () => coordinates,
         vehicles: () => vehicle,
         weather: () => weather,
+        tests: () => tests,
+        users: () => users
     },
   };
 
@@ -188,7 +208,15 @@ const server = new ApolloServer<MyContext>({
 
   resolvers,
 
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  plugins: [
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+
+    // ApolloServerPluginLandingPageDisabled(),
+
+    environment === 'production'
+    ? ApolloServerPluginLandingPageProductionDefault()
+    : ApolloServerPluginLandingPageLocalDefault({ embed: false }),
+  ],
 
 });
 
