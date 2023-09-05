@@ -211,7 +211,7 @@ const server = new ApolloServer<MyContext>({
   plugins: [
     ApolloServerPluginDrainHttpServer({ httpServer }),
 
-    ApolloServerPluginLandingPageDisabled(),
+    // ApolloServerPluginLandingPageDisabled(),
 
     // environment === 'production'
     // ? ApolloServerPluginLandingPageProductionDefault()
